@@ -28,6 +28,7 @@ $(document).ready(function() {
     });
     $("#weatherButton").click(function(e){
         var value =$("#cityField").val();
+        var cityurl="https://api.unsplash.com/search/collections?page=1&query="+value;
         console.log(value);
         $("#displayCity").text(value);
         e.preventDefault();
@@ -58,7 +59,7 @@ $(document).ready(function() {
             }
        });
     });
-    $("#searchButton").click(function(e)){
+    $("#searchButton").click(function(e){
         var value=$("#stackField");
         e.preventDefault();
         var myurl="https:api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle="+value+"&site=stackoverflow";
@@ -66,19 +67,36 @@ $(document).ready(function() {
             url:myurl,
             dataType:"json",
             success: function(parsed_json){
+                var myarray=parsed_json["items"];
+                var everything="<ul>";
+                $.each(myarray,function(i,item){
+                    everything+= "<li> <a href=&quot;"+myarray[i].link+"&quot;>";
+                    everything+=myarray[i].title;
+                    everything+="</a></li>"
+                });
                 
+                everything+="</ul>";
+                $("#answers").html(everything);
             }
         })
-    }
+    });
 });
 </script>
+
+<link rel="stylesheet" type="text/css" href="creative.css">
 </head>
 <body>
+<main>
+<nav class="floating-menu-top">
+    <h1>Weather Today</h1>
+</nav>
+<p1>
 <form>
 Enter A Utah City: <input type="text" id="cityField" value=""><br>
 Suggestion: <span id="txtHint">Empty</span>
 <input id="weatherButton" type="submit" value="Submit">
 </form>
+</p1>
 <p>City</p>
 <textarea id="displayCity">No City</textarea>
 <p>Current Weather</p>
@@ -88,5 +106,6 @@ Suggestion: <span id="txtHint">Empty</span>
     <input id="searchButton" type="submit" value="Submit">
 </form>
 <div id="answers">Empty</div>
+</main>
 </body>
 </html>

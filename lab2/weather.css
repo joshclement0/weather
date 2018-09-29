@@ -1,0 +1,15 @@
+.floating-menu-top{
+    background-color:black;
+    width:100%;
+    position:fixed;
+    top:3px;
+    float:left;
+    height:75px;
+    min-width: 375px;
+}
+main{
+    margin-top: 80px;
+}
+p1{
+    column-count: 3;
+}
