@@ -18,12 +18,12 @@ $(document).ready(function() {
         everything += "</ul>";
         $("#txtHint").html(everything);
         })
-        .done(function() { console.log('getJSON request succeeded!'); })
+        .done(function() { /*console.log('getJSON request succeeded!');*/ })
         .fail(function(jqXHR, textStatus, errorThrown) { 
             console.log('getJSON request failed! ' + textStatus); 
             console.log("incoming "+jqXHR.responseText);
         })
-        .always(function() { console.log('getJSON request ended!');
+        .always(function() { //console.log('getJSON request ended!');
         });
     });
     $("#weatherButton").click(function(e){
@@ -47,6 +47,7 @@ $(document).ready(function() {
             var temp_min = parsed_json['main']['temp_min'];
             var temp_max = parsed_json['main']['temp_max'];
             var wind_speed = parsed_json['wind']['speed'];
+            console.log(weather_icon);
             everything = "<img src=\"http://openweathermap.org/img/w/" + weather_icon + ".png\"/>"
             everything += "<ul>";
             everything += "<li>Location: " + location;
@@ -70,7 +71,7 @@ $(document).ready(function() {
                 var myarray=parsed_json["items"];
                 var everything="<ul>";
                 $.each(myarray,function(i,item){
-                    everything+= "<li> <a href=&quot;"+myarray[i].link+"&quot;>";
+                    everything+= "<li> <a href="+myarray[i].link+">";
                     everything+=myarray[i].title;
                     everything+="</a></li>"
                 });
@@ -83,29 +84,30 @@ $(document).ready(function() {
 });
 </script>
 
-<link rel="stylesheet" type="text/css" href="creative.css">
+<link rel="stylesheet" type="text/css" href="weather.css">
 </head>
 <body>
 <main>
 <nav class="floating-menu-top">
     <h1>Weather Today</h1>
 </nav>
-<p1>
 <form>
 Enter A Utah City: <input type="text" id="cityField" value=""><br>
-Suggestion: <span id="txtHint">Empty</span>
+Suggestion: <div class=column><span id="txtHint"></span>
+</div>
 <input id="weatherButton" type="submit" value="Submit">
 </form>
-</p1>
 <p>City</p>
 <textarea id="displayCity">No City</textarea>
 <p>Current Weather</p>
 <div id="weather">No weather</div>
+</main>
+<div class=questions>
 <form>
     Enter question: <input type="text" id="stackField" value=""><br>
     <input id="searchButton" type="submit" value="Submit">
 </form>
 <div id="answers">Empty</div>
-</main>
+</div>
 </body>
 </html>
